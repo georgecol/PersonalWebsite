@@ -17,36 +17,40 @@ a:hover {
     color: gray;
 }
 
-
 .header {
     background-color: #f0f0f0;
-    padding:20px;
+    padding: 20px;
     text-align: left;
-    display: flex;      
-    flex-direction: column;   /* Keep name + title on top */
+    display: flex;
+    flex-direction: column;
 }
 
 .header-links {
-    display: flex;           
-    gap: 30px;               /* Space between Github / LinkedIn / TryHackMe */
+    display: flex;
+    gap: 30px;
+    /* Space between links */
 }
+
 .content {
     margin: 20px;
     text-align: left;
-
 }
+.content a {
+    text-decoration: none;  
+}
+
 .nav {
     margin: 20px;
     text-align: left;
-    display:flex;
-    gap:40px;
+    display: flex;
+    gap: 40px;
 }
+
 .nav a {
     text-decoration: none;
     font-weight: bold;
-    font-style:italic;
+    font-style: italic;
 }
-
-
-
-/* . = style a class , # = style an id, (h1,p, etc) = style element*/
+.projects li + li { /* Selects every li that is preceded by another li */
+    margin-bottom:10px;
+}
