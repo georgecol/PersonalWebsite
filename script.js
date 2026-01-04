@@ -1,32 +1,54 @@
-const toggleBtn = document.getElementById('toggleBtn');
 const body = document.body;
-const modeIcon = document.getElementById('icon');
+
+// Load shared header
+fetch("header.html")
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("shared-header").innerHTML = data;
 
 
-// Load saved mode on page load
-const savedMode = localStorage.getItem('mode');
-if (savedMode) {
+        initThemeToggle();
+        initLastEdited();
+    });
+
+function initThemeToggle() {
+    const toggleBtn = document.getElementById('toggleBtn');
+    const modeIcon = document.getElementById('icon');
+
+    if (!toggleBtn || !modeIcon) return;
+
+    // Load saved mode
+    const savedMode = localStorage.getItem('mode') || 'light-mode';
     body.classList.remove('light-mode', 'dark-mode');
     body.classList.add(savedMode);
-    updateIcons(savedMode);
+    updateIcons(savedMode, modeIcon);
+
+    // Toggle on click
+    toggleBtn.addEventListener('click', () => {
+        body.classList.toggle('dark-mode');
+        body.classList.toggle('light-mode');
+
+        const currentMode = body.classList.contains('dark-mode')
+            ? 'dark-mode'
+            : 'light-mode';
+
+        localStorage.setItem('mode', currentMode);
+        updateIcons(currentMode, modeIcon);
+    });
 }
 
-// Toggle mode on button click
-toggleBtn.addEventListener('click', () => {
-    body.classList.toggle('dark-mode');
-    body.classList.toggle('light-mode');
+function updateIcons(mode, icon) {
+    icon.src =
+        mode === 'dark-mode'
+            ? 'assets/sun-colour.png'
+            : 'assets/moon-colour.png';
+}
 
-    const currentMode = body.classList.contains('dark-mode') ? 'dark-mode' : 'light-mode';
-    localStorage.setItem('mode', currentMode);
-
-    updateIcons(currentMode);
-});
-
-// Swap icons
-function updateIcons(mode) {
-    if (mode === 'dark-mode') {
-        modeIcon.src = 'assets/sun-colour.png';
-    } else {
-        modeIcon.src = 'assets/moon-colour.png';
+function initLastEdited() {
+    const lastEdited = document.getElementById('lastedited');
+    const lastModified = document.lastModified;
+    const dateOnly = lastModified.toLocaleDateString();
+    if (lastEdited) {
+        lastEdited.textContent = `Last edited: ${dateOnly}`;
     }
 }
