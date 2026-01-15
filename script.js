@@ -45,8 +45,3 @@ function updateIcons(mode, icon) {
             : 'assets/moon-colour.png';
 }
 
-function initLastEdited() {
-    const lastEdited = document.getElementById('lastedited');
-        lastEdited.textContent = `Last edited: ${document.lastModified.toLocaleDateString}`;
-    }
-
